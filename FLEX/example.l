@@ -6,29 +6,7 @@
   #include <stdio.h>
   #include <stdlib.h>
   #include <string.h>
-
-
-  int numbers = 0;
-
-  int single_comment = 0;
-  int left_comment = 0;
-  int right_comment = 0;
-  int left_parenthesis = 0;
-  int right_parenthesis = 0;
-  int semicolons = 0;
-  int unknown_chars = 0;
-  int new_lines = 0;
-  int blank_spaces = 0;
-
-  int type_int = 0;
-  int type_char = 0;
-  int type_double = 0;
-  int type_float = 0;
-  int type_boolean = 0;
-  int type_void = 0;
-
-
-  int words = 0;
+  #include "tokens_counter.h"
 %}
 
 %%
@@ -40,7 +18,7 @@
 "boolean" {type_boolean++;}
 
 [0-9]+ {numbers++;}
-[A-Za-z]+ {words++;}
+([a-zA-Z_][a-zA-Z0-9]+) {variables++;}
 
 
 "/*" {left_comment++;}
@@ -49,10 +27,27 @@
 "{" {left_parenthesis++;}
 "}" {right_parenthesis++;}
 ";" {semicolons++;}
-" "+ {blank_spaces++;}
-. {unknown_chars++;}
+
+"==" {double_equal_sign++;}
+"<" {less_than_sign++;}
+"<=" {less_equal_sign++;}
+">" {more_than_sign++;}
+">=" {more_equal_sign++;}
+
+"=" {equals_sign++;}
+"+" {plus_sign++;}
+"+=" {plus_equal_sign++;}
+"-" {minus_sign++;}
+"-=" {minus_equal_sign++;}
+"*" {times_sign++;}
+"*=" {times_equal_sign++;}
+"/" {divide_sign++;}
+"/=" {divide_equals_sign++;}
 
 "\n" {new_lines++;}
+[ \t]* {whitespace++;}
+. {unknown_chars++;}
+
 
 %%
 main(int argc, char **argv){
@@ -60,7 +55,12 @@ main(int argc, char **argv){
   printf("int: %d, char: %d, float: %d, double: %d\n", type_int, type_char, type_float, type_double);
   printf("Comments: %d, left_comments: %d, right_comments: %d\n", single_comment, left_comment, right_comment);
   printf("Left_par: %d, Right_par: %d\n", left_parenthesis, right_parenthesis);
-  printf("Semicolons: %d, New Lines: %d, Blank spaces: %d\n", semicolons, new_lines, blank_spaces);
-  printf("Words: %d, numbers: %d, \n", words, numbers);
+  printf("Semicolons: %d, New Lines: %d, Blank spaces: %d\n", semicolons, new_lines, whitespace);
+  printf("Equals: %d, Plus: %d, Minus: %d, Times: %d, Divide: %d\n", equals_sign, plus_sign, minus_sign,
+                                                                                  times_sign, divide_sign);
+  printf("Plus_E: %d, Minus_E: %d, Times_E: %d, Divide_E: %d\n", plus_equal_sign, minus_equal_sign, times_equal_sign, divide_equals_sign);
+  printf("EE: %d, LT: %d, LE: %d, MT: %d, ME: %d\n", double_equal_sign, less_than_sign, less_equal_sign,
+                                                                      more_than_sign, more_equal_sign);
+  printf("Variables: %d, numbers: %d, \n", variables, numbers);
   printf("Unknown chars: %d\n\n", unknown_chars);
 }
