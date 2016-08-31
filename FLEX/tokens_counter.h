@@ -34,3 +34,4 @@
   int divide_equals_sign= 0;
 
   int variables = 0;
+  int keywords = 0;

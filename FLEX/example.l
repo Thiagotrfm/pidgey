@@ -17,9 +17,57 @@
 "void" {type_void++;}
 "boolean" {type_boolean++;}
 
+"if" {}
+"else" {}
+"do" {}
+"for" {}
+"while" {}
+
+"return" {}
+
+abstract |
+continue |
+new |
+switch |
+assert |
+default |
+goto |
+package |
+synchronized |
+private |
+this |
+break |
+implements |
+protected |
+byte |
+import |
+public |
+throw |
+case |
+enum |
+instanceof |
+transient |
+catch |
+extends |
+short |
+try |
+final |
+interface |
+static |
+class |
+finally |
+long |
+strictfp |
+volatile |
+const |
+native |
+super keywords++;
+
 [0-9]+ {numbers++;}
 ([a-zA-Z_][a-zA-Z0-9]+) {variables++;}
 
+"(" {left_parenthesis++;}
+")" {right_parenthesis++;}
 
 "/*" {left_comment++;}
 "*/" {right_comment++;}
@@ -53,6 +101,7 @@
 main(int argc, char **argv){
   yylex();
   printf("int: %d, char: %d, float: %d, double: %d\n", type_int, type_char, type_float, type_double);
+  printf("Keywords: %d\n", keywords);
   printf("Comments: %d, left_comments: %d, right_comments: %d\n", single_comment, left_comment, right_comment);
   printf("Left_par: %d, Right_par: %d\n", left_parenthesis, right_parenthesis);
   printf("Semicolons: %d, New Lines: %d, Blank spaces: %d\n", semicolons, new_lines, whitespace);
