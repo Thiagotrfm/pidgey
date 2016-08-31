@@ -1,5 +1,13 @@
 /* Declaração de variáveis que serão usadas */
+
+%option noyywrap nodefault yylineno case-insensitive
+
 %{
+  #include <stdio.h>
+  #include <stdlib.h>
+  #include <string.h>
+
+
   int numbers = 0;
 
   int single_comment = 0;
